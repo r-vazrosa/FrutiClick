@@ -1,11 +1,7 @@
 import '../styles/Application.css';
 
 const Application = ({ iconPath, name, openApp }) => {
-  const publicUrl = process.env.PUBLIC_URL || '';
-  const src =
-    iconPath.startsWith('http') || iconPath.startsWith(publicUrl)
-      ? iconPath
-      : `${publicUrl}${iconPath}`;
+  const publicUrl = process.env.PUBLIC_URL || "";
 
   return (
     <div className="app">
@@ -15,7 +11,7 @@ const Application = ({ iconPath, name, openApp }) => {
         onClick={() => openApp && openApp(name)}
         title={`Open ${name}`}
       >
-        <img src={src} alt={name} />
+        <img src={`${publicUrl}${iconPath}`} alt={name} />
         <p>{name}</p>
       </button>
     </div>
@@ -23,4 +19,3 @@ const Application = ({ iconPath, name, openApp }) => {
 };
 
 export default Application;
-
