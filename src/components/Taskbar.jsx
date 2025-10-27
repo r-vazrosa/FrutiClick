@@ -4,15 +4,18 @@ import TaskbarClock from "./TaskbarClock.jsx"
 
 
 
-const Taskbar = ({openApp}) => (
+const Taskbar = ({openApp}) => {
+  const publicUrl = process.env.PUBLIC_URL || "";
+
+  return (
               <div id="taskbar">
                 <div id="taskbar-start">
-                    <img src="/images/icon_2.png" />
+                    <img src={`${publicUrl}/images/icon_2.png`} />
                     <p>start</p>
                 </div>
                 
                 <div id="taskbar-tab-section">
-                    <TaskbarTab name="Fruti-Click" iconPath="/images/840.ico"openApp={openApp}/>
+                    <TaskbarTab name="Fruti-Click" iconPath="/images/840.ico" openApp={openApp}/>
                     <TaskbarTab name="Shop" iconPath="/images/951.ico" openApp={openApp}/>
                     <TaskbarTab name="Settings" iconPath="/images/507.ico" openApp={openApp}/>
                     <TaskbarTab name="Info" iconPath="/images/964.ico" openApp={openApp}/>
@@ -20,6 +23,7 @@ const Taskbar = ({openApp}) => (
                 </div>
                 <TaskbarClock />
             </div>
-);
+  );
+}
 
 export default Taskbar;
