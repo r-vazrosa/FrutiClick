@@ -1,6 +1,5 @@
 import '../styles/Application.css';
 
-
 const Application = ({ iconPath, name, openApp }) => {
   const publicUrl = process.env.PUBLIC_URL || '';
   const src =
@@ -24,5 +23,4 @@ const Application = ({ iconPath, name, openApp }) => {
 };
 
 export default Application;
-
 
