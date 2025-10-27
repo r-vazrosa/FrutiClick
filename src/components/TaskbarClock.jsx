@@ -1,14 +1,14 @@
 import '../styles/TaskbarClock.css';
 
+const TaskbarClock = () => {
+  const publicUrl = process.env.PUBLIC_URL || "";
 
-const TaskbarTab = () => (
+  return (
     <div id="taskbar-clock">
-        <img src="/images/icon_1.ico" />
-        <p id="taskbar-clock-time">12:00 PM</p>
+      <img src={`${publicUrl}/images/icon_1.ico`} alt="Clock icon" />
+      <p id="taskbar-clock-time">12:00 PM</p>
     </div>
-);
+  );
+};
 
-export default TaskbarTab;
-
-
-
+export default TaskbarClock;
