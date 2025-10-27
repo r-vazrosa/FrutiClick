@@ -1,0 +1,78 @@
+/* Taskbar Tabs */
+
+#taskbar-tab-section {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    gap: 10px;
+    align-items: center;
+    margin-left: 10px;
+    flex: 1 1 auto;
+    overflow: hidden; 
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+#taskbar-tab-section::-webkit-scrollbar {
+  display: none;                     /* Chrome, Safari, Edge */
+}
+
+
+
+.taskbar-tab {
+    display: flex;
+    flex-direction: row;
+    background: var(--taskbar-tab-color);
+    height: 75%;
+    width: 170px;
+    align-items: center;
+    font-weight: 200;
+    font-size: 15px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    color: var(--white);
+    text-decoration: none;
+}
+
+.taskbar-tab:hover {
+    background: var(--taskbar-tab-hover-color);
+}
+
+.taskbar-tab-current {
+    display: flex;
+    flex-direction: row;
+    height: 75%;
+    width: 170px;
+    align-items: center;
+    font-weight: 200;
+    font-size: 15px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    background: var(--taskbar-tab-selected-color);
+    color: var(--white);
+    text-decoration: none;
+}
+
+.taskbar-tab img {
+    width: 21px;
+    margin-left: 10px;
+    margin-right: 12px;
+}
+
+.taskbar-tab p {
+    margin: 0;
+    padding: 0;
+}
+
+.taskbar-tab-current img {
+    width: 26px;
+    margin-left: 10px;
+    margin-right: 6px;
+}
+
+.taskbar-tab-ccurent p {
+    margin: 0;
+    padding: 0;
+}

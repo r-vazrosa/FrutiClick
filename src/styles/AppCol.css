@@ -1,0 +1,17 @@
+/* Apps */
+#app-col {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+    font-weight: 200;
+    margin-left: 15px;
+    margin-top: 60px;
+    gap: 10px;
+}
+
+@media (max-width: 1050px) {
+  #app-col {
+    display: none;
+  }
+}

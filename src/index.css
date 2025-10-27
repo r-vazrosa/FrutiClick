@@ -1,13 +1,212 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+    --white: #FFFFFF;
+    --transparent-white: rgba(255, 255, 255, .3);
+    --black: #000000;
+
+    --primary: rgba(0, 120, 200, 0.5);
+    --secondary: rgba(0, 100, 180, 0.5);
+    --background: rgba(0, 60, 140, 0.5);
+    --foreground: #0050a0;
+    --accent: #7fd9eb;
+    --alternate-background: rgba(0, 120, 40, 0.5);
+    --alternate-foreground: rgba(12, 177, 67);
+    --alternate-accent: rgba(169, 238, 192, 1);
+
+
+
+
+    /*specific colors */
+
+    --app-hover-background-color: rgba(31, 103, 211, 0.250);
+    --app-active-background-color: rgba(13, 72, 160, 0.250);
+    --app-hover-border-color: rgba(3, 87, 214, .6);
+
+    --application-screen-color: linear-gradient(to bottom,
+       rgba(45, 138, 252, 0.6) 0%, 
+       rgba(24, 98, 223, 0.6) 5%, 
+       rgba(26, 59, 132, 0.6) 100%  
+    );
+
+
+    --application-header-content-color: #EFEBD8;
+    --application-header-content-box-shadow: rgba(201, 198, 182, 0.8);
+
+    --taskbar-color: linear-gradient(to bottom,
+        #57A1F6 0%,
+        #245DDB 50%,
+        #1D4BB3 100%
+    );
+    --taskbar-start-color: linear-gradient(to bottom,
+        #7ce47c 0%,
+        #1DB61D 30%,
+        #29882A 100%
+    );
+
+    --taskbar-tab-color: linear-gradient(to bottom,
+        #53c4f8 0%,
+        #3980F4 30%,
+        #0976b4 100%
+    );
+
+    --taskbar-tab-hover-color: linear-gradient(to bottom,
+        rgb(132, 215, 253) 0%,
+        #5f99f7 30%,
+        #2983b8 100%
+    );
+
+    --taskbar-tab-selected-color: linear-gradient(to bottom,
+        #2986b1 0%,
+        #154aa0 30%,
+        #022f49 100%
+    );
+
+    --taskbar-clock-color: linear-gradient(to bottom,
+        #14A8EF 0%,
+        #0D9BEE 50%,
+        #0B84CC 100%
+    );
+    --taskbar-clock-border-color: #14357C;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+    background-image: url('assets/background_1.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: 2000px auto;
+
+    font-family: Tahoma, 'Segoe UI', Geneva, Verdana, sans-serif;
+
+    margin: 0;
+    overflow: hidden;
 }
+
+
+
+
+/* ---------------------- General Structure  -------------------------------*/
+
+#content {
+    position: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+
+p, h1, h2, img {
+    cursor: default;
+    user-select:none;
+}
+
+a {
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* --------------------- Specific Structure  -------------------------------*/
+
+
+/* Screen --------------------------------- */
+
+
+
+
+
+/* Application */
+#screen {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+#application-screen {
+    position: absolute;
+    top: 20%;
+    transform: translateY(-10%);
+    right: 5%;
+    width: 800px;
+    height: 550px;
+    background: var(--application-screen-color);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+
+#application-content {
+    background-color: var(--transparent);
+    width: 788px;
+    height: 479px;
+    margin: auto;
+    margin-bottom: 6px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+
+
+
+
+
+
+
+
+
+/* Seperate applications------------------------------------------------ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 900px) {
+
+    #application-screen {
+        position: static;
+        width: 100vw;
+        height: auto;
+        max-width: none;
+        max-height: none;
+        transform: none;
+        top: auto;
+        right: auto;
+        margin: 0;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    #application-content {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    #application-content {
+        overflow: auto;
+        padding-top: 28px;
+    }
+  
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+/* Fruti-click */
+
+#fruti-click {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 98%;
+    height: 98%;
+    margin: auto;
+}
+
+

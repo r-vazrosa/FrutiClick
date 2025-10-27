@@ -1,0 +1,72 @@
+/* Settings */
+
+#settings {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+#setting-picker {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    gap: 60px;
+    background-color: var(--alternate-background);
+    padding-right: 10px;
+}
+
+#setting {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: row;
+    color: var(--alternate-accent)
+}
+
+#setting img {
+    width: 80px;
+    height: 80px;
+    margin-right: 30px;
+}
+
+#config-section {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    background-color: var(--background);
+    overflow-y: scroll;
+    max-height: 100%;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    padding-left: 20px;
+}
+
+#config {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#config p{
+    color: var(--white);
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
+    margin-right: 20px;
+    
+}
+
+
+
+#config-subsection {
+    display: flex;
+    flex-direction: row;
+    color: var(--accent);
+    align-items: center;
+}
+
+#config-subsection button{
+    height: 20px;
+    width: 90px;
+    margin-left: 30px;
+}

@@ -1,0 +1,19 @@
+iframe {
+  position: fixed;
+  bottom: 60px;
+  left: 15px;
+  width: 300px;
+  height: 160px;
+  border: none;
+  z-index: 1000;
+}
+
+@media (max-width: 900px) {
+
+    IFrame {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+  
+}

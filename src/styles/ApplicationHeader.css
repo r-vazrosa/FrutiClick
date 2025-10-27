@@ -1,0 +1,91 @@
+#application-header {
+    height: 37px;
+    width: 100%;
+    margin: 0;
+    opacity: 2;
+}
+
+#application-header-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 0px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#application-header-title p {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    color: var(--white);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
+    font-weight: 200;
+}
+
+#application-header-title img {
+    width: 20px;
+    margin: 0 7px;
+}
+
+#application-header-title-icon-name {
+    display: flex;
+    flex-direction: row;
+}
+
+#close-button {
+    margin-left: auto;
+    cursor: pointer;
+    display: block;
+}
+
+#application-header-content {
+    background-color: var(--application-header-content-color);
+    width: 788px;
+    height: 100%;
+    margin: auto;
+    box-shadow: inset 0 0 0 2px var(--application-header-content-box-shadow);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+#header-account-section, #header-currency-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#header-currency-section {
+    margin-right: 8px;
+}
+
+#header-account-section img, #header-currency-section img {
+    width: 24px;
+    height: 24px;
+    margin: 0 8px 0 5px;
+}
+
+#header-account-section p, #header-currency-section p {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 2px;
+    font-size: 14px;
+}
+
+@media (max-width: 900px) {
+
+    #application-header-content, #application-header {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    #application-header {
+        z-index: 10;
+    }
+
+
+  
+}

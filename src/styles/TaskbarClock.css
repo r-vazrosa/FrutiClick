@@ -1,0 +1,22 @@
+/* Taskbar Clock */
+#taskbar-clock {
+    display: flex;
+    flex-direction: row;
+    background: var(--taskbar-clock-color);
+    height: 100%;
+    padding: 0 20px 0 5px;
+    align-items: center;
+    border-left: 2px solid var(--taskbar-clock-border-color);
+    margin-left: auto;
+}
+
+
+#taskbar-clock img {
+    height: 80%;
+}
+
+#taskbar-clock-time {
+    margin: 0;
+    padding: 0;
+    margin-left: 7px;
+}

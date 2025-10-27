@@ -1,0 +1,11 @@
+/* Info */
+
+#info {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background);
+    align-items: center;
+    overflow-y: scroll;
+    max-height: 100%;;
+}
+
