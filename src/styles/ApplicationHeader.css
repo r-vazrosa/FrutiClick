@@ -74,6 +74,84 @@
     font-size: 14px;
 }
 
+.ah-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6000;
+}
+
+.ah-modal {
+  background: var(--app-hover-border-color);
+  padding: 18px;
+  border-radius: 8px;
+  min-width: 320px;
+  max-width: 90%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  font-family: Tahoma, 'Segoe UI', Geneva, Verdana, sans-serif;
+
+}
+
+.ah-modal h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+  color: white;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
+}
+
+.ah-input {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.ah-modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ah-btn {
+  padding: 7px 12px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #f2f2f2;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.ah-btn-secondary {
+  border-color: #777;
+  background: #fff;
+}
+
+.ah-btn-danger {
+  background: #ffecec;
+  border-color: #cc6666;
+}
+
+#header-account-section {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#header-account-section p {
+  margin: 0;
+  user-select: none;
+}
+
+
 @media (max-width: 900px) {
 
     #application-header-content, #application-header {
