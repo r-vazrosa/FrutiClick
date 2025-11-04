@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/FrutiClick/static/css/main.19ab549d.css",
-    "main.js": "/FrutiClick/static/js/main.09e40735.js",
+    "main.css": "/FrutiClick/static/css/main.8f7f29fc.css",
+    "main.js": "/FrutiClick/static/js/main.0853ff8d.js",
     "static/media/background_1.jpg": "/FrutiClick/static/media/background_1.e223a2b6033771dcfc55.jpg",
     "index.html": "/FrutiClick/index.html",
-    "main.19ab549d.css.map": "/FrutiClick/static/css/main.19ab549d.css.map",
-    "main.09e40735.js.map": "/FrutiClick/static/js/main.09e40735.js.map"
+    "main.8f7f29fc.css.map": "/FrutiClick/static/css/main.8f7f29fc.css.map",
+    "main.0853ff8d.js.map": "/FrutiClick/static/js/main.0853ff8d.js.map"
   },
   "entrypoints": [
-    "static/css/main.19ab549d.css",
-    "static/js/main.09e40735.js"
+    "static/css/main.8f7f29fc.css",
+    "static/js/main.0853ff8d.js"
   ]
 }
