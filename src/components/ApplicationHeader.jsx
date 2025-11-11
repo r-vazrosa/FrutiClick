@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "../styles/ApplicationHeader.css";
 
 const COOKIE_NAME = "fruti_username";
+const STAR_COOKIE = "fruti-starries";
 
 function setCookie(name, value, days = 365) {
   const d = new Date();
@@ -80,15 +81,24 @@ const AccountModal = ({ open, initialValue = "", onClose, onSave }) => {
 const ApplicationHeader = () => {
   const publicUrl = process.env.PUBLIC_URL || "";
   const [username, setUsername] = useState("");
+  const [starries, setStarries] = useState(0); // <-- new state for star count
   const [modalOpen, setModalOpen] = useState(false);
 
-  // load cookie on mount
   useEffect(() => {
-    const saved = getCookie(COOKIE_NAME);
-    if (saved) {
-      setUsername(saved);
-    }
-  }, []);
+    const savedUser = getCookie(COOKIE_NAME);
+    const savedStarries = parseInt(getCookie(STAR_COOKIE), 10);
+
+    if (savedUser) setUsername(savedUser);
+    if (!isNaN(savedStarries)) setStarries(savedStarries);
+
+    const interval = setInterval(() => {
+      const newVal = parseInt(getCookie(STAR_COOKIE), 10);
+      if (!isNaN(newVal) && newVal !== starries) {
+        setStarries(newVal);
+      }
+    }, 100);
+    return () => clearInterval(interval);
+  }, [starries]);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -99,7 +109,6 @@ const ApplicationHeader = () => {
       setCookie(COOKIE_NAME, trimmed, 365);
       setUsername(trimmed);
     } else {
-      // if empty, remove cookie and clear display
       deleteCookie(COOKIE_NAME);
       setUsername("");
     }
@@ -136,7 +145,7 @@ const ApplicationHeader = () => {
 
         <div id="header-currency-section">
           <img src={`${publicUrl}/images/starry.gif`} alt="Currency" />
-          <p>999,999,999</p>
+          <p>{starries.toLocaleString()}</p> {}
         </div>
       </div>
 
