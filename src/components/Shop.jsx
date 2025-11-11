@@ -8,7 +8,8 @@ const Shop = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const url = "https://r-vazrosa.github.io/csce242/json/shop.json";
+      //const url = "http://localhost:3002/api/items";
+      const url = "https://fruticlick-backend.onrender.com/api/items"
       try {
         const response = await fetch(url);
         if (!response.ok) {

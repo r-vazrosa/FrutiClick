@@ -14,7 +14,7 @@ const ShopItem = ({ item }) => {
     <div className={itemClass}>
       <div className={descriptionClass}>
         <img
-          src={`${publicUrl}/images/item-img-${item.id}.png`}
+          src={`${publicUrl}/${item.image}`}
           alt={item.name}
         />
         <div>
