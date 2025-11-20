@@ -32,6 +32,8 @@ function setShopData(data) {
   setCookie(SHOP_COOKIE, JSON.stringify(data));
 }
 
+const FALLBACK_IMAGE = `${process.env.PUBLIC_URL || ""}/images/item-img-1.png`;
+
 const ShopItem = ({ item }) => {
   const isEven = item.id % 2 === 0;
   const itemClass = isEven ? "shop-item-alternate" : "shop-item";
@@ -45,6 +47,7 @@ const ShopItem = ({ item }) => {
   const [processing, setProcessing] = useState(false);
   const [count, setCount] = useState(0);
   const [dynamicCost, setDynamicCost] = useState(item.cost);
+  const [imgSrc, setImgSrc] = useState(FALLBACK_IMAGE);
 
   useEffect(() => {
     const saved = parseInt(getCookie(STAR_COOKIE), 10);
@@ -57,6 +60,25 @@ const ShopItem = ({ item }) => {
     const adjustedCost = Math.round(item.cost * (1 + itemCount / 5));
     setDynamicCost(adjustedCost);
   }, [item.name, item.cost]);
+
+  useEffect(() => {
+    const computeSrc = () => {
+      const raw = (item.image || "").trim();
+      if (!raw) return FALLBACK_IMAGE;
+      if (raw.startsWith("http://") || raw.startsWith("https://") || raw.startsWith("//")) {
+        return raw;
+      }
+      if (raw.startsWith("/")) {
+        return `${publicUrl}${raw}`;
+      }
+      return `${publicUrl}/${raw}`;
+    };
+    setImgSrc(computeSrc());
+  }, [item.image, publicUrl]);
+
+  const handleImgError = () => {
+    if (imgSrc !== FALLBACK_IMAGE) setImgSrc(FALLBACK_IMAGE);
+  };
 
   const notifyBalanceChange = (newBalance) => {
     try {
@@ -102,7 +124,7 @@ const ShopItem = ({ item }) => {
   return (
     <div className={itemClass}>
       <div className={descriptionClass}>
-        <img src={`${publicUrl}/${item.image}`} alt={item.name} />
+        <img src={imgSrc} alt={item.name} onError={handleImgError} />
         <div>
           <h2>
             {item.name} ( +{item.value} / {item.type} ) — Cost: {dynamicCost}

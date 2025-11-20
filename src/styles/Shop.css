@@ -7,4 +7,110 @@
     max-height: 100%;
 }
 
+.shop-add-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 12px;
+}
 
+.shop-add-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: var(--white);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 10;
+}
+
+@media (max-width: 720px) {
+  .shop-add-button {
+    display: none;
+  }
+}
+
+/* Modal overlay + form */
+.shop-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.shop-modal {
+  position: relative;
+  background: #fff;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.shop-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.shop-modal input,
+.shop-modal textarea,
+.shop-modal select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.shop-modal button {
+  align-self: flex-start;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.shop-modal button[type="submit"] {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.shop-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: #eee;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.shop-modal-close:hover {
+  background: #ddd;
+  transform: scale(1.05);
+}
+
+.shop-modal-close:active {
+  background: #ccc;
+  transform: scale(0.95);
+}

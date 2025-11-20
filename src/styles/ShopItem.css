@@ -73,3 +73,16 @@
     align-items: center;
     margin-right: 10px;
 }
+
+.shop-item,
+.shop-item-alternate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shop-item-purchase {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
