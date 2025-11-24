@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import "../styles/Shop.css";
 import ShopItem from "./ShopItem.jsx";
 
-const API_URL = "https://fruticlick-backend.onrender.com/api/items";
-//const API_URL = "http://localhost:3002/api/items";
+const API_URL = "http://localhost:3002/api/items";
+// const API_URL = "https://fruticlick-backend.onrender.com/api/items";
 
 const Shop = () => {
   const [items, setItems] = useState([]);
@@ -15,8 +15,8 @@ const Shop = () => {
     value: "",
     cost: "",
     type: "click",
-    image: ""
   });
+  const [fileInput, setFileInput] = useState(null);
   const [formErrors, setFormErrors] = useState({});
   const [formResult, setFormResult] = useState("");
 
@@ -43,20 +43,12 @@ const Shop = () => {
     const costNum = Number(values.cost);
     if (Number.isNaN(costNum) || costNum < 0) errs.cost = "Cost must be a number >= 0.";
     if (!["click", "second"].includes(values.type)) errs.type = 'Type must be "click" or "second".';
-    if (values.image && values.image.trim().length > 0) {
-      try {
-        new URL(values.image);
-      } catch {
-        if (!values.image.startsWith("/") && !values.image.startsWith("./") && !values.image.startsWith("../") && !values.image.startsWith("//")) {
-          errs.image = "Image must be a valid URL or a relative path.";
-        }
-      }
-    }
     return errs;
   };
 
   const openForm = () => {
-    setForm({ name: "", description: "", value: "", cost: "", type: "click", image: "" });
+    setForm({ name: "", description: "", value: "", cost: "", type: "click" });
+    setFileInput(null);
     setFormErrors({});
     setFormResult("");
     setShowForm(true);
@@ -71,6 +63,11 @@ const Shop = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files && e.target.files[0];
+    setFileInput(file || null);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormResult("Sending...");
@@ -81,20 +78,23 @@ const Shop = () => {
       return;
     }
 
-    const payload = {
-      name: form.name.trim(),
-      description: form.description.trim(),
-      value: Number(form.value),
-      cost: Number(form.cost),
-      type: form.type,
-      image: form.image.trim()
-    };
+    if (!fileInput) {
+      setFormResult("Please pick an image file.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", form.name.trim());
+    formData.append("description", form.description.trim());
+    formData.append("value", String(Number(form.value)));
+    formData.append("cost", String(Number(form.cost)));
+    formData.append("type", form.type);
+    formData.append("image", fileInput);
 
     try {
       const resp = await fetch(API_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: formData
       });
       const data = await resp.json();
       if (!resp.ok) {
@@ -108,16 +108,29 @@ const Shop = () => {
         setFormResult(data.message || "Error adding item.");
         return;
       }
-      const newItem = data.item ? data.item : data;
+      let newItem = data.item ? data.item : data;
+      if (newItem && newItem.image) {
+        newItem.image = newItem.image.startsWith("/") ? newItem.image : `/${newItem.image}`;
+        newItem.image = `${newItem.image}?ts=${Date.now()}`;
+      }
       setItems((prev) => [...prev, newItem]);
       setFormResult("Item added!");
       setTimeout(() => {
         setFormResult("");
         closeForm();
       }, 900);
-    } catch {
+    } catch (err) {
+      console.error(err);
       setFormResult("Network error while adding item.");
     }
+  };
+
+  const handleItemUpdated = (updatedItem) => {
+    setItems(prev => prev.map(it => it.id === updatedItem.id ? updatedItem : it));
+  };
+
+  const handleItemDeleted = (deletedId) => {
+    setItems(prev => prev.filter(it => it.id !== deletedId));
   };
 
   return (
@@ -130,7 +143,12 @@ const Shop = () => {
         </div>
 
         {items.map((item) => (
-          <ShopItem key={item.id} item={item} />
+          <ShopItem
+            key={item.id}
+            item={item}
+            onItemUpdated={handleItemUpdated}
+            onItemDeleted={handleItemDeleted}
+          />
         ))}
       </div>
 
@@ -143,7 +161,7 @@ const Shop = () => {
               <h3>Add new item</h3>
             </div>
 
-            <form onSubmit={handleSubmit} className="shop-modal-form">
+            <form onSubmit={handleSubmit} className="shop-modal-form" encType="multipart/form-data">
               <div className="shop-field">
                 <label>
                   Name
@@ -188,10 +206,9 @@ const Shop = () => {
 
               <div className="shop-field">
                 <label>
-                  Image URL (full URL or relative path)
-                  <input name="image" value={form.image} onChange={handleFormChange} placeholder="/images/..." />
+                  Choose an image file (required)
+                  <input type="file" accept="image/*" onChange={handleFileChange} required />
                 </label>
-                {formErrors.image && <div className="shop-field-error">{formErrors.image}</div>}
               </div>
 
               <div className="shop-modal-actions">

@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ShopItem.css";
+import ItemEditDialog from "./ItemEditDialog.jsx";
+import ItemDeleteDialog from "./ItemDeleteDialog.jsx";
 
 const STAR_COOKIE = "fruti-starries";
 const SHOP_COOKIE = "fruti-shop-items";
+
+const BACKEND_ORIGIN = process.env.REACT_APP_API_ORIGIN || "http://localhost:3002";
+
 
 function setCookie(name, value, days = 365) {
   const d = new Date();
@@ -34,7 +39,7 @@ function setShopData(data) {
 
 const FALLBACK_IMAGE = `${process.env.PUBLIC_URL || ""}/images/item-img-1.png`;
 
-const ShopItem = ({ item }) => {
+const ShopItem = ({ item, onItemUpdated, onItemDeleted }) => {
   const isEven = item.id % 2 === 0;
   const itemClass = isEven ? "shop-item-alternate" : "shop-item";
   const descriptionClass = isEven
@@ -48,6 +53,9 @@ const ShopItem = ({ item }) => {
   const [count, setCount] = useState(0);
   const [dynamicCost, setDynamicCost] = useState(item.cost);
   const [imgSrc, setImgSrc] = useState(FALLBACK_IMAGE);
+
+  const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
   useEffect(() => {
     const saved = parseInt(getCookie(STAR_COOKIE), 10);
@@ -65,16 +73,35 @@ const ShopItem = ({ item }) => {
     const computeSrc = () => {
       const raw = (item.image || "").trim();
       if (!raw) return FALLBACK_IMAGE;
-      if (raw.startsWith("http://") || raw.startsWith("https://") || raw.startsWith("//")) {
-        return raw;
+
+      if (raw.startsWith("blob:")) return raw;
+      if (/^https?:\/\//i.test(raw) || raw.startsWith("//")) return raw;
+
+      let [pathPart, queryPart] = raw.split("?");
+      queryPart = queryPart ? `?${queryPart}` : "";
+
+      let normalized = pathPart;
+      const imagesIndex = normalized.indexOf("/images/");
+      if (imagesIndex !== -1) {
+        normalized = normalized.slice(imagesIndex);
+      } else if (normalized.startsWith("images/")) {
+        normalized = `/${normalized}`;
+      } else {
+        normalized = `/images/${normalized.replace(/^\/+/, "")}`;
       }
-      if (raw.startsWith("/")) {
-        return `${publicUrl}${raw}`;
+      normalized = normalized.replace(/\/+/g, "/");
+
+      const isDev = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+      if (isDev) {
+        return `${BACKEND_ORIGIN}${normalized}${queryPart}`;
       }
-      return `${publicUrl}/${raw}`;
+      return `${normalized}${queryPart}`;
     };
-    setImgSrc(computeSrc());
-  }, [item.image, publicUrl]);
+
+    const finalSrc = computeSrc();
+    console.log(`[ShopItem] resolved image for item id=${item.id} ->`, finalSrc);
+    setImgSrc(finalSrc);
+  }, [item.image, item.id]);
 
   const handleImgError = () => {
     if (imgSrc !== FALLBACK_IMAGE) setImgSrc(FALLBACK_IMAGE);
@@ -121,6 +148,14 @@ const ShopItem = ({ item }) => {
 
   const afford = balance >= dynamicCost;
 
+  const handleUpdated = (updatedItem) => {
+    if (onItemUpdated) onItemUpdated(updatedItem);
+  };
+
+  const handleDeleted = (deletedId) => {
+    if (onItemDeleted) onItemDeleted(deletedId);
+  };
+
   return (
     <div className={itemClass}>
       <div className={descriptionClass}>
@@ -148,7 +183,40 @@ const ShopItem = ({ item }) => {
           }}
           title={afford ? `Buy for ${dynamicCost} starries` : "Insufficient starries"}
         />
+        <div style={{ marginTop: 8, display: "flex", gap: 8, justifyContent: "center" }}>
+          <button
+            onClick={() => setShowEdit(true)}
+            className="shop-button-secondary"
+            title="Edit item"
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => setShowDelete(true)}
+            className="shop-button-secondary shop-button-delete"
+            title="Delete item"
+          >
+            Delete
+          </button>
+        </div>
+
       </div>
+
+      {showEdit && (
+        <ItemEditDialog
+          item={item}
+          onClose={() => setShowEdit(false)}
+          onUpdated={handleUpdated}
+        />
+      )}
+
+      {showDelete && (
+        <ItemDeleteDialog
+          item={item}
+          onClose={() => setShowDelete(false)}
+          onDeleted={handleDeleted}
+        />
+      )}
     </div>
   );
 };

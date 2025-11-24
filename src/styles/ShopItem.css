@@ -86,3 +86,64 @@
   display: flex;
   align-items: center;
 }
+
+.shop-button-secondary {
+  color: white;
+  background-color: #555; 
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.shop-button-secondary:hover {
+  background-color: #666;
+}
+
+.shop-button-delete {
+  background-color: #d32f2f; 
+  color: white;
+}
+
+.shop-button-delete:hover {
+  background-color: #b71c1c; 
+}
+
+.shop-modal-actions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+}
+
+.shop-button-delete-confirm {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.shop-button-delete-confirm:hover {
+  background-color: #b71c1c;
+}
+
+.shop-button-cancel {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.shop-button-cancel:hover {
+  background-color: #666;
+}
