@@ -6,7 +6,7 @@ import ItemDeleteDialog from "./ItemDeleteDialog.jsx";
 const STAR_COOKIE = "fruti-starries";
 const SHOP_COOKIE = "fruti-shop-items";
 
-const BACKEND_ORIGIN = process.env.REACT_APP_API_ORIGIN || "http://localhost:3002";
+const BACKEND_ORIGIN = process.env.REACT_APP_API_ORIGIN || process.env.REACT_APP_API_ORIGIN || "";
 
 
 function setCookie(name, value, days = 365) {
@@ -71,32 +71,42 @@ const ShopItem = ({ item, onItemUpdated, onItemDeleted }) => {
 
   useEffect(() => {
     const computeSrc = () => {
-      const raw = (item.image || "").trim();
-      if (!raw) return FALLBACK_IMAGE;
+    const raw = (item.image || "").trim();
 
-      if (raw.startsWith("blob:")) return raw;
-      if (/^https?:\/\//i.test(raw) || raw.startsWith("//")) return raw;
+    if (!raw) return FALLBACK_IMAGE;
 
-      let [pathPart, queryPart] = raw.split("?");
-      queryPart = queryPart ? `?${queryPart}` : "";
+    if (raw.startsWith("blob:")) return raw;
+    if (/^https?:\/\//i.test(raw) || raw.startsWith("//")) return raw;
 
-      let normalized = pathPart;
-      const imagesIndex = normalized.indexOf("/images/");
-      if (imagesIndex !== -1) {
-        normalized = normalized.slice(imagesIndex);
-      } else if (normalized.startsWith("images/")) {
-        normalized = `/${normalized}`;
-      } else {
-        normalized = `/images/${normalized.replace(/^\/+/, "")}`;
+    let [pathPart, queryPart] = raw.split("?");
+    queryPart = queryPart ? `?${queryPart}` : "";
+
+    let normalized = pathPart;
+    const imagesIndex = normalized.indexOf("/images/");
+    if (imagesIndex !== -1) {
+      normalized = normalized.slice(imagesIndex); // '/images/...'
+    } else if (normalized.startsWith("images/")) {
+      normalized = `/${normalized}`;
+    } else {
+      normalized = `/images/${normalized.replace(/^\/+/, "")}`;
+    }
+    normalized = normalized.replace(/\/+/g, "/");
+
+    const isSameOrigin = () => {
+      try {
+        const backendHost = new URL(BACKEND_ORIGIN || window.location.origin).host;
+        return window.location.host === backendHost;
+      } catch {
+        return window.location.host === window.location.host;
       }
-      normalized = normalized.replace(/\/+/g, "/");
-
-      const isDev = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-      if (isDev) {
-        return `${BACKEND_ORIGIN}${normalized}${queryPart}`;
-      }
-      return `${normalized}${queryPart}`;
     };
+
+    if (BACKEND_ORIGIN && !isSameOrigin()) {
+      return `${BACKEND_ORIGIN}${normalized}${queryPart}`;
+    }
+
+    return `${normalized}${queryPart}`;
+  };
 
     const finalSrc = computeSrc();
     console.log(`[ShopItem] resolved image for item id=${item.id} ->`, finalSrc);
