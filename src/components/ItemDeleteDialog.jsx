@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-const API_URL = "http://localhost:3002/api/items";
-// const API_URL = "https://fruticlick-backend.onrender.com/api/items";
+//const API_URL = "http://localhost:3002/api/items";
+const API_URL = "https://fruticlick-backend.onrender.com/api/items";
 
 const ItemDeleteDialog = ({ item, onClose, onDeleted }) => {
   const [result, setResult] = useState("");

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-const API_URL = "http://localhost:3002/api/items";
-// const API_URL = "https://fruticlick-backend.onrender.com/api/items";
+//const API_URL = "http://localhost:3002/api/items";
+const API_URL = "https://fruticlick-backend.onrender.com/api/items";
 
 const ItemEditDialog = ({ item, onClose, onUpdated }) => {
   const [result, setResult] = useState("");

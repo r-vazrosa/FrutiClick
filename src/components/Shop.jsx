@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import "../styles/Shop.css";
 import ShopItem from "./ShopItem.jsx";
 
-const API_URL = "http://localhost:3002/api/items";
-// const API_URL = "https://fruticlick-backend.onrender.com/api/items";
+//const API_URL = "http://localhost:3002/api/items";
+const API_URL = "https://fruticlick-backend.onrender.com/api/items";
 
 const Shop = () => {
   const [items, setItems] = useState([]);
